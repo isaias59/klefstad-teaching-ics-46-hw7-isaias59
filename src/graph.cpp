@@ -1,4 +1,6 @@
 #include "graph.h"
+#include <vector>
+#include <unordered_set>
 
 void error(string msg) {
     cerr << "Error: " << msg << endl;
@@ -54,23 +56,25 @@ Graph Graph::sort_edges() const {
 }
 */
 ////////////////////////////////////////////////////
-
 VertexList Graph::edges_from(Vertex vertex) const {
-    VertexList vertices;
+    std::unordered_set<Vertex> unique_vertices;
+
     for (const auto& edge : *this) {
         if (edge.u == vertex) {
-            if (find(vertices.begin(), vertices.end(), edge.v) == vertices.end()) {
-                vertices.push_back(edge.v);
-            }
+            unique_vertices.insert(edge.v);
         }
         else if (edge.v == vertex) {
-            if (find(vertices.begin(), vertices.end(), edge.u) == vertices.end()) {
-                vertices.push_back(edge.u);
-            }
+            unique_vertices.insert(edge.u);
         }
     }
+
+    // Convert set to sorted list (if ordering is required)
+    VertexList vertices(unique_vertices.begin(), unique_vertices.end());
+    std::sort(vertices.begin(), vertices.end());  // Ensures predictable output order
+
     return vertices;
 }
+
 
 EdgeList Kruskals(const Graph& G) {
     EdgeList mst;
