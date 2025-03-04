@@ -121,8 +121,8 @@ VertexList dfs(const Graph& graph, Vertex startVertex) {
     }
     return visited;
 }
-
-VertexList bfs(const Graph& graph, Vertex startVertex) {
+///////////////////////////////////////////////////////////////
+/*VertexList bfs(const Graph& graph, Vertex startVertex) {
     VertexList visited;
     queue<Vertex> q;
     q.push(startVertex);
@@ -134,6 +134,33 @@ VertexList bfs(const Graph& graph, Vertex startVertex) {
             visited.push_back(v);
             for (auto&& neighbor : graph.edges_from(v)) {
                 q.push(neighbor);
+            }
+        }
+    }
+    return visited;
+}
+*/
+///////////////////////////////////////////////////////////////////////
+VertexList bfs(const Graph& graph, Vertex startVertex) {
+    VertexList visited;
+    unordered_set<Vertex> visited_set;
+    queue<Vertex> q;
+
+    q.push(startVertex);
+    visited_set.insert(startVertex);
+
+    while (!q.empty()) {
+        Vertex v = q.front();
+        q.pop();
+        visited.push_back(v);
+
+        VertexList neighbors = graph.edges_from(v);
+        sort(neighbors.begin(), neighbors.end());  // Ensure smallest vertex is visited first
+
+        for (const auto& neighbor : neighbors) {
+            if (visited_set.find(neighbor) == visited_set.end()) {
+                q.push(neighbor);
+                visited_set.insert(neighbor);
             }
         }
     }
