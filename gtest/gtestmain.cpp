@@ -1,4 +1,3 @@
-
 // -------------------- Google Test Main - gtestmain.cpp -------------------- //
 // :WARNING: DO NOT MODIFY THIS FILE AT ALL. :WARNING:
 // This file runs Google Test with any of the unit tests you wrote in the
