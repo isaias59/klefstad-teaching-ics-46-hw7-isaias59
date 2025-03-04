@@ -3,5 +3,5 @@
 #include "graph.h"
 
 TEST(Replace, Me) {
-  EXPECT_TRUE(true);
+  EXPECT_TRUE(false);
 }
