@@ -38,8 +38,9 @@ Graph Graph::sort_edges() const {
         });
     return sorted_graph;
 }
+///////////////////////////////////////////////
 
-VertexList Graph::edges_from(Vertex vertex) const {
+/*VertexList Graph::edges_from(Vertex vertex) const {
     VertexList vertices;
     for (const auto& edge : *this) {
         if (edge.u == vertex) {
@@ -47,6 +48,25 @@ VertexList Graph::edges_from(Vertex vertex) const {
         }
         else if (edge.v == vertex) {
             vertices.push_back(edge.u);
+        }
+    }
+    return vertices;
+}
+*/
+////////////////////////////////////////////////////
+
+VertexList Graph::edges_from(Vertex vertex) const {
+    VertexList vertices;
+    for (const auto& edge : *this) {
+        if (edge.u == vertex) {
+            if (find(vertices.begin(), vertices.end(), edge.v) == vertices.end()) {
+                vertices.push_back(edge.v);
+            }
+        }
+        else if (edge.v == vertex) {
+            if (find(vertices.begin(), vertices.end(), edge.u) == vertices.end()) {
+                vertices.push_back(edge.u);
+            }
         }
     }
     return vertices;
